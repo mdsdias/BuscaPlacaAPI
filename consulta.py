@@ -3,7 +3,7 @@ import json
 
 app = Flask("consultaPlaca")
 
-with open("dadosplacas.json") as f:
+with open("../dadosplacas.json") as f:
     dados = json.load(f)
 
 @app.route("/teste", methods=["GET"])
