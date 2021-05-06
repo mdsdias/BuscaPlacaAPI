@@ -11,14 +11,8 @@ def teste():
     return {"Testes": "Echo"}
 
 
-@app.route("/consultar", methods=["POST"])
-def consultaPlaca():
-
-    body = request.get_json()
-
-    if("placa" not in body):
-        return geraResponse(400, "O parametro Placa é obrigatorio")
-
+@app.route("/consultar/<string:placa>", methods=["GET"])
+def consultaPlaca(placa):
     for placas in dados:
         if placa == placas["placa"]:
             unidade_gestora = placas["unidade_gestora"]
@@ -35,7 +29,7 @@ def consultaPlaca():
             placa = placas["placa"]
             localizacao = placas["localizacao"]
             situacao = placas["situacao"]
-
+            
             retornar = [
                 {
                     "unidade_gestora": unidade_gestora,
@@ -54,8 +48,7 @@ def consultaPlaca():
                     "situacao": situacao
                 }
             ]
-    
-    return geraResponse(200, retornar)
+            return geraResponse(200, retornar)
 
 def geraResponse(status, mensagem, nome_do_conteudo=False, conteudo=False):
     response = {}
